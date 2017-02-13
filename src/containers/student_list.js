@@ -14,15 +14,17 @@ class StudentList extends Component{
 		var studentArray = [];
 		this.props.students.map((student, index)=>{
 			studentArray.push(
-				<li key={index} onClick={()=>this.props.SelectStudent(student.name)}>
+				<li key={index} onClick={()=>this.props.SelectStudent(student)}>
 					{student.name}
 				</li>
 			)
 		});
 		return(
 			<div>
-				Students:
+				<h1>Bootcamp Students:</h1>
+				<h3>Click on a student</h3>
 				{studentArray}
+				<h2>You picked: {this.props.selectedStudent}</h2>
 			</div>
 		)
 	}
@@ -32,13 +34,16 @@ class StudentList extends Component{
 //this is the glue between redux state and THIS component knowing about it
 //Another way - we are going to pick our reducers and they will be available to the component
 //as this.props.NAMEBELOW
+//use when you wanna map (and eventually display something)
 function mapStateToProps(state){
 	//gets state from connect, which gets it from react-redux
 	return{
-	students: state.students
+	students: state.students,
+	selectedStudent: state.studentPicker
 	}
 };
 
+//use when you want stuff to do (onClick, etc..)
 function mapDispatchToProps(dispatch){
 	//new thing from redux. expects an object
 	return bindActionCreators({
@@ -47,6 +52,10 @@ function mapDispatchToProps(dispatch){
 }; 
 
 
+//a component that has redux state and actions (redux is now aware of what's happening)
 //connect takes an argument, will return a function, for which StudentList is an argument
 //redux state is first param, redux action is second
 export default connect(mapStateToProps, mapDispatchToProps)(StudentList);  
+
+
+

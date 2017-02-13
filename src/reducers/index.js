@@ -6,10 +6,12 @@
 //first we need combineReducers from Redux
 import { combineReducers } from 'redux'; 
 import StudentReducer from './StudentReducer';
+import StudentPickerReducer from './StudentPickerReducer';
 
 
 const rootReducer = combineReducers({
-	students: StudentReducer
+	students: StudentReducer,
+	studentPicker: StudentPickerReducer
 })
 
 export default rootReducer; 
